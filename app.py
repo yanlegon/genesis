@@ -7,7 +7,7 @@ import os, random, bcrypt, time
 
 # Initialization
 app = Flask(__name__)
-conexion = sqlite3.connect(os.getcwd()+"\\database.sqlite", check_same_thread=False)
+conexion = sqlite3.connect(os.getcwd()+"/database.sqlite", check_same_thread=False)
 app.secret_key = "VHUgcHV0YSBtYWRyZSBjYWJyb25hem8gaGlqbyBkZSBwdXRhLCB5b3VyIGZ1Y2tpbmcgbW90aGVyIHNvbiBvZiBhIGJpdGNoLCBmdWNrIG9mZg"
 db = conexion.cursor()
 login_manager = LoginManager()
