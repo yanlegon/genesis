@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/responsive.css')}}">
+    <title>Iniciar Sesion</title>
+</head>
+<body>
+    <main style="width: 100vw; height: 100vh; background-color: whitesmoke;" class="container-fluid d-flex">
+        <form action="/login" method="post" class="border register-form bg-body d-flex flex-column m-auto">
+            <h1 class="mb-3 mt-5 m-auto">Iniciar Sesion</h1>
+            <div class="form-item input-group mb-3 w-75 m-auto">
+                <span class="input-group-text" id="basic-addon1">+53</span>
+                <input required type="text" name="phone" class="form-control" placeholder="Telefono">
+            </div>
+            <div class="form-item form-floating mb-3 w-75 m-auto">
+                <input required type="password" name="password" placeholder="Contraseña" id="password" class="form-control">
+                <label for="password">Contraseña</label>
+            </div>
+            <div class="form-check mb-3 w-75 m-auto">
+                <input type="checkbox" name="passwordCheckbox" id="passwordCheckbox" class="form-check-input">
+                <label for="passwordCheckbox" class="form-check-label">Mostrar Contraseña</label>
+            </div>
+            {% if alert %}
+                <p style="color: red;" class="m-auto">{{alert}}</p>
+            {% endif %}
+            <p class="m-auto mb-2">Olvidaste la contraseña? <a href="/">Recuperala  aqui</a></p>
+            <button class="btn m-auto mb-3 w-50 btn-primary">
+                Entrar
+            </button>
+            <p class="mb-5 m-auto">No tienes cuenta? <a href="/register">Crea una aqui</a></p>
+        </form>
+    </main>
+    <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/login.js')}}"></script>
+</body>
+</html>

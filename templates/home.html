@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/responsive.css')}}">
+    <title>Genesis</title>
+</head>
+<body>
+    <main style="width: 100vw; height: 100vh; padding: 0;" class="container-fluid d-flex flex-column">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand fs-2" href="/">
+                    <img src="{{url_for('static', filename='icons/logo.svg')}}" class="d-inline-block align-text-top" width="50" height="50" alt="Logo nails glamour store image">
+                    Géne<b style="color: orangered;">sis</b>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="ms-4 collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      <li class="nav-item">
+                        <a class="nav-link active fs-5" aria-current="page" href="/">Inicio</a>
+                      </li>
+                      
+                      <li class="nav-item dropdown">
+                        <a class="nav-link fs-5 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Categorias
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="/categories/nails">Manicure</a></li>
+                          <li><a class="dropdown-item" href="/categories/hair">Peluqueria/Barberia</a></li>
+                        </ul>
+                      </li>
+                      
+                      {% if not current_user.is_authenticated %}
+                      <li class="nav-item">
+                        <a class="nav-link fs-5" href="/login">Iniciar Sesion</a>
+                      </li>
+                      {% else %}
+                      <li class="nav-item">
+                        <a class="nav-link fs-5" href="/pedidos/{{current_user.phone}}">Ordenes</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link fs-5" href="/logout">Cerrar sesion</a>
+                      </li>
+                      {% endif %}
+                    </ul>
+                    <div class="mt-auto mb-auto ms-auto me-2 fs-5 d-flex">
+                      {% if current_user.is_authenticated %}
+                          <p class="m-auto">{{current_user.name}}</p>
+                          
+                      {% else %}
+                          <p class="m-auto">Debes iniciar sesion</p>
+                      {% endif %}
+                    </div>
+                    
+                    <form class="d-flex search-form" action="/search" method="post" role="search">
+                      <input class="form-control me-2" name="search" type="search" placeholder="Ingrese el texto..." aria-label="Search">
+                      <button class="btn btn-outline-success" type="submit">Buscar</button>
+                    </form>
+                    {% if not current_user.is_authenticated %}
+
+                    {% else %}
+                    <div class="cart">
+                      <a href="/cart/{{current_user.phone}}" class="mt-auto mb-auto ms-2 me-2">
+                        <img src="/static/icons/cart.svg" width="30" height="30" alt="cart icon image">
+                      </a>
+                    </div>
+                    {% endif %}
+                    
+                  </div>
+            </div>
+        </nav>
+        <div class="products-box container-fluid">
+          {% for item in products %}
+            <div class="card mt-3 mb-3" style="width: 18rem;">
+              <img src="/static/imgs/{{item[6]}}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">{{item[1]}}</h5>
+                <p class="card-text">{{item[2]}}</p>
+              </div>
+              <div class="card-body d-flex justify-content-between">
+                <p class="fs-5" style="color: green; font-weight: bold;">{{item[3]}} $</p>
+                
+                {% if item[4]==0 %}
+                <p class="fs-5">
+                  <span style="color: red; font-weight: bold;">AGOTADO</span>
+                </p>
+                {% else %}
+                <a href="/add_to_cart/{{item[0]}}">
+                  <img style="cursor: pointer;" width="30" height="30" src="/static/icons/addcart.svg" alt="Icono svg para agregar nuevos elementos al carrito">
+                </a>
+                <p class="fs-5"><span style="color: orangered; font-weight: bold;">{{item[4]}}</span> UDS</p>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+    </main>
+    <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+</body>
+</html>

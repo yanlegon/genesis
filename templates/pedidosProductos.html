@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+    <title>Glamour Nails</title>
+    <style>
+        .productos{
+            width: 100vw;
+            height: fit-content;
+            display: flex;
+            padding-top: 30px;
+        }
+        .products-pedidos{
+            width: 60%;
+            height: fit-content;
+            border: 1px solid rgba(128, 128, 128, 0.676);
+            margin:auto;
+        }
+        .products-pedidos-card{
+            border: none;
+            width: 80%;
+            padding: 5px;
+            display: flex;
+        }
+        .products-pedidos-card img{
+            height: 200px;
+        }
+        .products-pedidos-card div{
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <main class="productos">
+        <div class="products-pedidos">
+            <a href="/pedidos">
+                <button class="m-1 btn btn-primary">
+                    Volver
+                </button>
+            </a>
+            {% for item in products %}
+            <div class="products-pedidos-card">
+                <img src="/static/imgs/{{item[6]}}" alt="{{item[2]}}">
+                <div>
+                    <p class="fs-3">{{item[1]}}</p>
+                    <p>{{item[2]}}</p>
+                    <span class="fs-3" style="color: green;">{{item[3]}} $</span>
+                    <span class="fs-3">x<b style="color: orangered; font-weight: bold;">{{item[-1]}}</b> </span>
+                </div>
+            </div>
+            <hr>  
+            {% endfor %}
+        </div>
+    </main>
+    <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+</body>
+</html>

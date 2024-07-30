@@ -1,0 +1,16 @@
+.pedidos{
+    width: 100vw;
+    height: fit-content;
+    display: flex;
+}
+.pedidos-container{
+    width: fit-content;
+    padding: 10px;
+    margin: 20px auto;
+}
+@media (max-width: 768px){
+    .buttons{
+        flex-direction: column;
+    }
+
+}

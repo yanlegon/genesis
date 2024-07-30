@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/responsive.css')}}">
+    <title>Registrarse</title>
+</head>
+<body>
+    <main style="background-color: whitesmoke; width: 100vw; height: 100vh;" class="container-fluid d-flex">
+        <form action="/register" class="register-form bg-body border container-sm d-flex flex-column m-auto" method="post">
+            <h1 class="m-auto mb-3 mt-5">Registrate</h1>
+            <div class="form-item form-floating mb-3 w-75 m-auto">
+                <input required type="text" name="name" id="name" class="form-control" placeholder="Nombre Completo">
+                <label for="name" class="form-label">Nombre Completo</label>
+            </div>
+            <div class="form-item input-group mb-3 w-75 m-auto">
+                <span class="input-group-text" id="basic-addon1">+53</span>
+                <input required type="text" name="phone" id="phone" class="form-control" placeholder="Telefono">
+            </div>
+            <div class="form-item form-floating mb-3 w-75 m-auto">
+                <input required type="text" name="address" id="address" class="form-control" placeholder="Direccion">
+                <label for="address" class="form-label">Direccion</label>
+            </div>
+            <div class="form-item form-floating mb-3 w-75 m-auto">
+                <input required type="password" name="password" id="password" class="form-control" placeholder="Contraseña">
+                <label for="password" class="form-label">Contraseña</label>
+                <div style="color: red;" class="form-text" id="passwordHelp"></div>
+            </div>
+            <div class="form-item form-floating mb-3 w-75 m-auto">
+                <input required type="password" name="confirmPassword" id="confirmPassword" class="form-control" placeholder="Confirmar Contraseña">
+                <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+            </div>
+            <div class="form-check mb-3 w-75 m-auto">
+                <input type="checkbox" name="passwordCheckbox" id="passwordCheckbox" class="form-check-input">
+                <label for="passwordCheckbox" class="form-check-label">Mostrar Contraseña</label>
+            </div>
+            <button class="send-btn btn btn-primary m-auto mb-3">Registrarse</button>
+            <p class="mb-5 m-auto">Ya tienes cuenta? <a href="/login">Accede a ella</a></p>
+        </form>
+    </main>
+    <script>
+        
+    </script>
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+    <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+</body>
+</html>

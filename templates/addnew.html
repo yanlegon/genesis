@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/responsive.css')}}">
+    <title>Document</title>
+</head>
+<body>
+    <main style="padding: 0;width: 100vw; height: 100vh;" class="container-fluid d-flex bg-body-tertiary">
+        <form enctype="multipart/form-data" accept="/addnew" method="post" class="register-form m-auto bg-body d-flex flex-column border">
+            <h2 class="m-auto mt-5">Agrega un nuevo producto</h2>
+            <div class="mb-3 w-75 m-auto mt-3">
+              <label for="name" class="form-label">Nombre del producto</label>
+              <input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3 w-75 m-auto">
+              <label for="desc" class="form-label">Descripcion</label>
+              <input type="text" name="desc" class="form-control" id="desc">
+            </div>
+            <div class="mb-3 w-75 m-auto">
+                <label for="price" class="form-label">Precio</label>
+                <input type="number" name="price" class="form-control w-50" id="price">
+            </div>
+            <div class="mb-3 w-75 m-auto">
+                <label for="stock" class="form-label">Stock</label>
+                <input type="number" name="stock" class="form-control w-25" id="stock">
+            </div>
+            <div class="m-auto w-75">
+                <p class="fs-5">Categorias</p>
+                <select class="form-select w-75" name="categ" aria-label="Default select example">
+                    <option value="nails">Manicure</option>
+                    <option value="hair">Peluqueria/Barberia</option>
+                </select>
+            </div>
+            <div class="m-auto w-75">
+                <label style="width: 50px; height: 50px; display: flex; background-color: #333; border-radius: 10px; cursor: pointer;" class="mt-3" for="img"><img class="m-auto" width="30" height="30" src="/static/icons/image.svg" alt="selecciona una imagen icono" ></label>
+                <input style="display: none;" id="img" name="img" type="file" accept=".jpg,.png,.jpeg">
+            </div>
+            <button type="submit" class="m-auto mb-5 btn btn-primary mt-4">Submit</button>   
+          </form>
+    </main>
+    <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+</body>
+</html>

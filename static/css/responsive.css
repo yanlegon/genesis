@@ -1,0 +1,61 @@
+main{
+    overflow-y: scroll;
+    padding: 0;
+}
+.products-box{
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.card{
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.277)
+}
+.nav-item{
+    border-bottom: 3px transparent solid !important;
+}
+.nav-item:hover{
+    border-bottom: 3px orangered solid !important;
+    transition: all 0.2s ease ;
+}
+.register-form{
+    width: 40%;
+    height: fit-content;
+}
+@media (max-width: 1024px){
+    .register-form{
+        width: 60%;
+    }
+}
+@media (max-width: 768px){
+    .register-form{
+        width: 70%;
+    }
+    .products-box{
+        flex-direction: column;
+        align-items: center;
+    }
+}
+@media (max-width: 576px){
+    .register-form{
+        width: 95%;
+    }
+    .cart{
+        width: 100%;
+        display: flex;
+    }
+    .cart a{
+        margin: 5px auto !important;
+    }
+    .cart a img{
+        margin: 10px auto;
+        width: 50px;
+        height: 50px;
+    }
+    .search-form{
+        margin-top: 10px;
+    }
+    .form-item{
+        width: 95% !important;
+    }
+}

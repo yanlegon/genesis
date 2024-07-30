@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/cart.css')}}">
+    <title>Glamour Nails</title>
+</head>
+<body>
+    <main style="padding: 0;width: 100vw; height: 100vh;" class="container-fluid d-flex flex-column">
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand fs-2" href="/">
+            <img src="{{url_for('static', filename='icons/logo.svg')}}" class="d-inline-block align-text-top" width="50" height="50" alt="Logo nails glamour store image">
+            Géne<b style="color: orangered;">sis</b>
+        </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="ms-4 collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active fs-5" aria-current="page" href="/">Inicio</a>
+                  </li>
+                  
+                  <li class="nav-item dropdown">
+                    <a class="nav-link fs-5 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Categorias
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="/categories/nails">Manicure</a></li>
+                      <li><a class="dropdown-item" href="/categories/hair">Peluqueria/Barberia</a></li>
+                    </ul>
+                  </li>
+                  
+                  {% if not current_user.is_authenticated %}
+                  <li class="nav-item">
+                    <a class="nav-link fs-5" href="/login">Iniciar Sesion</a>
+                  </li>
+                  {% else %}
+                  <li class="nav-item">
+                    <a class="nav-link fs-5" href="/pedidos/{{current_user.phone}}">Ordenes</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link fs-5" href="/logout">Cerrar sesion</a>
+                  </li>
+                  {% endif %}
+                </ul>
+                <div class="mt-auto mb-auto ms-auto me-2 fs-5 d-flex">
+                  {% if current_user.is_authenticated %}
+                      <p class="m-auto">{{current_user.name}}</p>
+                      
+                  {% else %}
+                      <p class="m-auto">Debes iniciar sesion</p>
+                  {% endif %}
+                </div>
+                
+                <form class="d-flex search-form" action="/search" method="post" role="search">
+                  <input class="form-control me-2" name="search" type="search" placeholder="Ingrese el texto..." aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+                {% if not current_user.is_authenticated %}
+
+                {% else %}
+                <div class="cart">
+                  <a href="/cart/{{current_user.phone}}" class="mt-auto mb-auto ms-2 me-2">
+                    <img src="/static/icons/cart.svg" width="30" height="30" alt="cart icon image">
+                  </a>
+                </div>
+                {% endif %}
+                
+              </div>
+        </div>
+    </nav>
+        <div class="container-sm products-container mt-5">
+            <div class="products-box">
+              {% for item in products %}
+                <div class="product-card border">
+                  <img src="/static/imgs/{{item[8]}}" alt="{{item[2]}}">
+                  <div class="data">
+                      <h4 class="ms-2">{{item[2]}}</h4>
+                      <p class="ms-2 ">{{item[3]}}</p>
+                      <p class="ms-2 mb-0">Precio: <span style="color: green;">{{item[4]}} $</span></p>
+                      <p class="ms-auto me-auto amount"> 
+                        <a style="text-decoration: none; font-weight: bolder;" href="/decrement/{{item[0]}}/{{item[6]}}">-</a>
+                        <span style="color: orangered;">{{item[6]}}</span>
+                        <a style="text-decoration: none; font-weight: bolder;" href="/increment/{{item[0]}}/{{item[6]}}">+</a>
+                      </p>
+                    </div>
+                    <a class="delete-btn p-2" href="/delete/{{item[0]}}">
+                      <img src="/static/icons/delete.svg" alt="Delete from cart icon">
+                    </a>
+                </div>
+              {% endfor %}
+            </div>
+            <div class="order-box d-flex flex-column">
+                <h3>Tu Carrito</h3>
+                <hr>
+                {% for item in products %}
+                  <div class="d-flex w-100">
+                    <p>{{item[2]}} x{{item[6]}}</p>
+                    <span class="side-prices ms-auto me-1" style="color: green;" >+ {{item[4]*item[6]}} $</span>
+                  </div>
+                {% endfor %}
+                {% if overSpent %}
+                <div class="d-flex w-100">
+                  <p>Descuento (10%)</p>
+                  <span class="side-prices ms-auto me-1" style="color: green">- {{discount}}</span>
+                </div>
+                {% endif %}
+                {% if firstTime %}
+                <div class="d-flex w-100">
+                  <p>Descuento (10%)</p>
+                  <span class="side-prices ms-auto me-1" style="color: green">- {{discount}}</span>
+                </div>
+                {% endif %}
+                
+                <hr>
+                <div class="w-100 d-flex">
+                  <h4 class="fs-3">Total:</h4>
+                  <span class="ms-auto fs-3 me-2" style="color: green;">{{total}} $</span>
+                </div>
+                <a href="/pedir/{{current_user.phone}}/{{total}}" class="btn btn-primary ms-auto me-auto mt-3 mb-4">Comprar</a>
+                <p>Enviar a: {{current_user.address}} </p>
+                {% if overSpent %}
+                  <p style="color: green;">Descuento del 10% por confiar en nosotros!</p>
+                {% endif %}
+                {% if firstTime %}
+                  <p style="color: green;">Descuento del 10% por primera compra!</p>
+                {% endif %}
+                <p style="color: orangered;">Los pedidos pueden cancelarse antes de ser aceptados</p>
+              </div>
+        </div>
+    </main>
+    <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+</body>
+</html>

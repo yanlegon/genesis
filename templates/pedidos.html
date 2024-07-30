@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/pedidos.css')}}">
+    <title>Glamour Nails</title>
+</head>
+<body>
+    <main class="pedidos">
+        <div class="d-flex flex-column pedidos-container border">
+            <a href="/">
+                <button class="m-1 btn btn-primary">
+                    Volver a la tienda
+                </button>
+            </a>
+            {% if not pedidos %}
+                <span class="m-auto fs-1">Vacio</span>
+            {% else %}
+                {% for item in pedidos %}
+                    <div class="pedido d-flex">
+                        <div style="width: fit-content; display: flex; flex-direction: column;">
+                            <span class="mt-1 ms-2" style="color: rgb(137, 184, 49);">{{item[4]}}</span>
+                            <span class="fs-3 mt-1 ms-2">{{item[1]}} - </span>
+                            <p class="mt-1 ms-2">{{item[3]}}</p>
+                            <span class="mt-1 ms-2 fs-4" style="color: green;"><i style="color: #222;">Total: </i>{{item[5]}} $</span>
+                            <span class="mt-1 ms-2 fs-5">
+                                Entrega: 
+                                {% if item[6] == 0 %}
+                                    {% if not item[8] == 0 %} 
+                                        <b style="color: red;">Rechazada</b>
+                                    {% else %}
+                                        <b style="color: orangered;">En espera...</b> 
+                                    {% endif %}
+                                {% else %} 
+                                    <b style="color: green;">Aprobada</b> 
+                                {% endif %}
+                            </span> 
+                            {% if not item[8] == 0 %} 
+                                <span class="mt-1 ms-2 fs-5" style="color: red;">Elimine esta orden</span>
+                            {% endif %}
+                        </div>
+                        <div class="buttons d-flex ms-5 flex-column">
+                            <a class="ms-2 mb-auto mt-auto" href="/pedidos/productos/{{item[0]}}">
+                                <button class="btn btn-primary">Productos</button>
+                            </a>
+                            {% if not item[8] == 0%}
+                            {% else %}
+                                {% if item[6] == 1 %}
+
+                                {% else %}
+                                    <a class="ms-2 mb-auto mt-auto" href="/aceptar/{{item[0]}}">
+                                        <button class="btn btn-success">Aceptar entrega</button>
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+                            {% if not item[8] == 0%}
+                            {% else %}
+                                {% if item[6] == 1 %}
+
+                                {% else %}
+                                    <a class="ms-2 mb-auto mt-auto" href="/rechazar/{{item[0]}}">
+                                        <button class="btn btn-danger">Rechazar</button>
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+                            <a class="ms-2 mb-auto mt-auto" href="/delete-order/{{item[0]}}">
+                                <button class="btn btn-danger">Eliminar</button>
+                            </a> 
+                        </div>
+                    </div>
+                    <hr>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </main>
+    <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+</body>
+</html>
