@@ -318,4 +318,4 @@ def reject(id):
     return redirect("/pedidos")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="217.15.170.87", port=80, debug=True)
