@@ -44,10 +44,11 @@ def register():
                     name=request.form.get("name"),
                     phone=request.form.get('phone'),
                     address=request.form.get("address"),
-                    password=request.form.get("password").encode("utf-8"))
+                    password=request.form.get("password").encode("utf-8"),
+                    prevAmount=0)
         salt = bcrypt.gensalt()
         hashed = bcrypt.hashpw(user.password, salt)
-        db.execute("INSERT INTO users VALUES(?,?,?,?,?)", (user.id, user.name, user.phone, hashed, user.address))
+        db.execute("INSERT INTO users VALUES(?,?,?,?,?,?)", (user.id, user.name, user.phone, hashed, user.address, user.prevAmount))
         conexion.commit()
         return redirect(url_for("login"))
     return render_template("register.html")
