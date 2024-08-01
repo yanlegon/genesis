@@ -28,13 +28,16 @@ def loader_user(user_id):
     user = []
     for item in data:
         user = item
-    loggedUser = Users(id=user[0],
-                        name=user[1],
-                        phone=user[2],
-                        password=user[3],
-                        address=user[4],
-                        prevAmount=int(user[5]))
-    return loggedUser
+    if data:
+        loggedUser = Users(id=user[0],
+                            name=user[1],
+                            phone=user[2],
+                            password=user[3],
+                            address=user[4],
+                            prevAmount=int(user[5]))
+        return loggedUser
+    else:
+        return []
 
 # Rutas
 @app.route("/register", methods=["GET", "POST"])
