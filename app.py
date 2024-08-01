@@ -107,7 +107,7 @@ def addnew():
         conexion.commit()
         if file:
             filename = secure_filename(img)
-            file.save(os.path.join(os.getcwd()+'\\static\\imgs\\', filename))
+            file.save(os.path.join(os.getcwd()+'/static/imgs/', filename))
         return redirect("/")
     return render_template("addnew.html")
 
@@ -319,4 +319,4 @@ def reject(id):
     return redirect("/pedidos")
 
 if __name__ == "__main__":
-    app.run(host="217.15.170.87", port=8080, debug=True)
+    app.run(host="localhost", port=8080, debug=True)
